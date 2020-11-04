@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Список писем{% endblock %}
+
+{% block header %}Список писем со статусами{% endblock %}
+
+{% block content %}
+    {% for object in last_mails %}
+        <div style="background-color: {% if object.sending_time %} honeydew; {% else %} whitesmoke; {% endif %}">
+            <p>{{ forloop.counter }}. Кому: {{ object.to }}. Тема: {{ object.subject }}</p>
+            <p>Создано: {{ object.creation_time|date:"Y.m.d H:i:s" }}. Отправлено:
+                {% if object.sending_time %}
+                {{ object.sending_time|date:"Y.m.d H:i:s" }}
+                {% else %}
+                Еще нет
+                {% endif %}
+            </p>
+            <p>Текст письма: {{ object.body }}</p>
+            <p>Время ожидания отправки: {{ object.seconds }} с.</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'index' %}">Отправить еще письмо</a>
+{% endblock %}

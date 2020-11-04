@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Создать письмо{% endblock %}
+
+{% block header %}Создание нового письма{% endblock %}
+
+{% block content %}
+    <!-- <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form> -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            {{ form.to.errors }}
+            <label for="{{ form.to.id_for_label }}">Кому:</label>
+            {{ form.to }}
+            <p>Через запятую можно добавить несколько адресов</p>
+        </div>
+        <div class="form-group">
+            {{ form.subject.errors }}
+            <label for="{{ form.subject.id_for_label }}">Тема:</label>
+            {{ form.subject }}
+        </div>
+        <div class="form-group">
+            {{ form.body.errors }}
+            <label for="{{ form.body.id_for_label }}">Текст:</label>
+            {{ form.body }}
+        </div>
+        <div class="form-group">
+            {{ form.seconds.errors }}
+            <label for="{{ form.seconds.id_for_label }}">Отправить через, с.</label>
+            {{ form.seconds }}
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+{% endblock %}
+{% block nav %}
+    <a href="{% url 'mails_list' %}">К списку последних 10 писем</a>
+{% endblock %}
